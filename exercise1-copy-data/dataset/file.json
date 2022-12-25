@@ -1,0 +1,35 @@
+{
+	"name": "file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "land",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"landContainer": {
+				"type": "String"
+			},
+			"landFile": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().landFile",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().landContainer",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	}
+}
