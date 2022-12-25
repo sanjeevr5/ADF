@@ -1,0 +1,12 @@
+{
+	"name": "land",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=landnxx;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDkyQjZERDU1LTk4QkQtNDJBMi1BRjVCLTQwMjBCMEExNjM1MF9mNmFhZmMyMi0xMGZkLTQ3M2MtYTI5OS05Y2VmYjg5MWRjNjYiDQp9"
+		}
+	}
+}
