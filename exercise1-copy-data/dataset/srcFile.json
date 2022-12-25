@@ -1,0 +1,35 @@
+{
+	"name": "srcFile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "src",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"srcContainer": {
+				"type": "String"
+			},
+			"srcFile": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().srcFile",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().srcContainer",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	}
+}
