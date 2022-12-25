@@ -39,17 +39,51 @@
 				"inputs": [
 					{
 						"referenceName": "landFile",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"landContainer": {
+								"value": "@pipeline().parameters.landContainer",
+								"type": "Expression"
+							},
+							"landFile": {
+								"value": "@pipeline().parameters.landFile",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "srcFile",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"srcContainer": {
+								"value": "@pipeline().parameters.srcContainer",
+								"type": "Expression"
+							},
+							"srcFile": {
+								"value": "@pipeline().parameters.srcFile",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"landContainer": {
+				"type": "string"
+			},
+			"landFile": {
+				"type": "string"
+			},
+			"srcContainer": {
+				"type": "string"
+			},
+			"srcFile": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
