@@ -45,6 +45,185 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/landFile')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "land",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"landContainer": {
+						"type": "String"
+					},
+					"landFile": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().landFile",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().landContainer",
+							"type": "Expression"
+						}
+					},
+					"compression": {
+						"type": "ZipDeflate"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/land')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/basicCopyData')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Zip Data",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings"
+									}
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "landFile",
+								"type": "DatasetReference",
+								"parameters": {
+									"landContainer": {
+										"value": "@pipeline().parameters.landContainer",
+										"type": "Expression"
+									},
+									"landFile": {
+										"value": "@pipeline().parameters.landFile",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "srcFile",
+								"type": "DatasetReference",
+								"parameters": {
+									"srcContainer": {
+										"value": "@pipeline().parameters.srcContainer",
+										"type": "Expression"
+									},
+									"srcFile": {
+										"value": "@pipeline().parameters.srcFile",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"landContainer": {
+						"type": "string"
+					},
+					"landFile": {
+						"type": "string"
+					},
+					"srcContainer": {
+						"type": "string"
+					},
+					"srcFile": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/landFile')]",
+				"[concat(variables('factoryId'), '/datasets/srcFile')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/srcFile')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "src",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"srcContainer": {
+						"type": "String"
+					},
+					"srcFile": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().srcFile",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().srcContainer",
+							"type": "Expression"
+						}
+					},
+					"compression": {
+						"type": "ZipDeflate"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/src')]"
+			]
 		}
 	]
 }
