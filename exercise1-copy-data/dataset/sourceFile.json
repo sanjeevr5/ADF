@@ -1,0 +1,41 @@
+{
+	"name": "sourceFile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "src",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"landContainer": {
+				"type": "String"
+			},
+			"landFile": {
+				"type": "String"
+			},
+			"sourceContainer": {
+				"type": "String"
+			},
+			"sourceFile": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().sourceFile",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().sourceContainer",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	}
+}
